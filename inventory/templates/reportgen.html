@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+report generator
+{% endblock title %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="row">
+    {% include 'includes/sidebar.html' with active_tab='report' %}
+    <div class="content col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top: 48px">
+        <h1>Report Generator</h1><br><br>
+        <form action="{% url 'inventory:report_req' %}" method="post">
+            {% csrf_token %}
+            <input name="type" id="type" list="typex" class="form-control col-sm-3"><br>
+            <datalist id="typex">
+                <option value="Sale"></option>
+                <option value="Restock"></option>
+            </datalist>
+            <input type="date" name="start" id="start" class="form-control col-sm-3"><br>
+            <input type="date" name="end" id="end" class="form-control col-sm-3"><br>
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock content %}

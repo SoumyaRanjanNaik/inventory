@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+{% endblock css %}
+
+
+{% block title %}
+Confirmation
+{% endblock title %}
+
+
+{% block content %}
+<div class="row">
+    {% include 'includes/sidebar.html' with active_tab='sale' %}
+    <div class="content col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top: 48px">
+        <div class="container" style="height:470px; overflow-y:scroll;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sl. no.</th>
+                        {% for f in field %}
+                        <th scope="col">{{ f }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product,quantity,discount,range,amount in data %}
+                    <tr>
+                        <th scope="row">{{ range|add:'1' }}</th>
+                        <td>{{ product }}</td>
+                        <td>{{ quantity }}</td>
+                        <td>{{ discount }}</td>
+                        <td>{{ amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <h3>total amount: {{ total }}</h3>
+        <h3>total amount(incl. gst): {{ total_gst }}</h3>
+        <a class="btn btn-primary d-print-none" onclick="window.print()">Print</a>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+{% endblock css %}
+
+
+{% block title %}
+add product confirmation
+{% endblock title %}
+
+
+{% block content %}
+<div class="row">
+    {% include 'includes/sidebar.html' with active_tab='new' %}
+    <div class="content col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top: 48px">
+        <h1>product addition successful</h1>
+        <!-- <a href="{% url 'inventory:dashboard' %}" class="btn btn-lg"></a> -->
+        <!-- <a class="btn btn-primary d-print-none" onclick="window.print()">Print</a> -->
+    </div>
+</div>
+{% endblock content %}

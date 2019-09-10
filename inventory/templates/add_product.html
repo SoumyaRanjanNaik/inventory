@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+{% endblock css %}
+
+
+{% block title %}
+Sale
+{% endblock title %}
+
+
+{% block content %}
+<div class="row">
+    {% include 'includes/sidebar.html' with active_tab='new' %}
+    <div class="content col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top: 48px">
+        <div class="container" style="height:500px; overflow-y:scroll;">
+            <form action="{% url 'inventory:add' %}" method="post" autocomplete="off">
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sl. no.</th>
+                            {% for f in field %}
+                            <th scope="col">{{ f }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in range %}
+                        <tr>
+                            <th scope="row">{{ x }}</th>
+                            <td><input type="text" name="product" id="product"></td>
+                            <td><input type="number" name="price" id="price"></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock content %}

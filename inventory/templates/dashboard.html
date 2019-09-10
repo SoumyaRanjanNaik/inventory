@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+{% endblock css %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block content %}
+<div class="row">
+    {% include 'includes/sidebar.html' with active_tab='dashboard'%}
+    <div class="content col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top: 48px">
+        <div class="row">
+            <div class="col">
+                <h4>Recent Restocks:</h4>
+                <div class="container" style="width: 500px; height:500px; overflow-y:scroll;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sl. No.</th>
+                                {% for f in field %}
+                                <th scope="col">{{ f }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for x in restock %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ x.date }}</td>
+                                <td>{{ x.r_id }}</td>
+                                <td>{{ x.gst }}</td>
+                                <td>{{ x.amount }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col">
+                <h4>Recent Sales</h4>
+                <div class="container" style="width: 500px; height:500px; overflow-y:scroll;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sl. No.</th>
+                                {% for f in field %}
+                                <th scope="col">{{ f }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for x in sale %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ x.date }}</td>
+                                <td>{{ x.sale_id }}</td>
+                                <td>{{ x.gst }}</td>
+                                <td>{{ x.amount }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

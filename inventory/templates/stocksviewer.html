@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+{% endblock css %}
+
+{% block title %}
+stocks viewer
+{% endblock title %}
+
+
+{% block content %}
+<div class="row">
+    {% include 'includes/sidebar.html' with active_tab='stock' %}
+    <div class="content col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top: 48px">
+        <h1>Current Stock:</h1>
+        <div class="container" style="height:500px; overflow-y:scroll;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sl. No.</th>
+                        {% for f in field %}
+                        <th scope="col">{{ f }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in stocks %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ x.p_id }}</td>
+                        <td>{{ x.p_name }}</td>
+                        <td>{{ x.p_price }}</td>
+                        <td>{{ x.stocks }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

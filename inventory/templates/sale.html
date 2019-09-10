@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+{% endblock css %}
+
+
+{% block title %}
+Sale
+{% endblock title %}
+
+
+{% block content %}
+<div class="row">
+    {% include 'includes/sidebar.html' with active_tab='sale'%}
+    <div class="content col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top: 48px">
+        <div class="container" style="height:500px; overflow-y:scroll;">
+            <form action="{% url 'inventory:bill' %}" method="post" autocomplete="off">
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sl. no.</th>
+                            {% for f in field %}
+                            <th scope="col">{{ f }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in range %}
+                        <tr>
+                            <th scope="row">{{ x }}</th>
+                            <td><input name="product" id="product" list="prod"></td>
+                            <td><input type="number" name="quantity" id="quantity"></td>
+                            <td><input type="number" name="discount" id="discount"></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+        <input type="number" name="gst" id="gst" placeholder="gst %"><br><br>
+        <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+<datalist id="prod">
+    {% for p in product %}
+    <option value="{{p}}"></option>
+    {% endfor %}
+</datalist>
+{% endblock content %}

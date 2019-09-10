@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+report generator
+{% endblock title %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="row">
+    {% include 'includes/sidebar.html' with active_tab='report' %}
+    <div class="content col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top: 48px">
+        <h4>Report for {{ type }} from {{ start }} to {{ end }}</h4><br>
+        <a class="btn btn-primary d-print-none" onclick="window.print()">Print</a><br><br>
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sl. No.</th>
+                        {% for f in fields %}
+                        <th scope="col">{{ f }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in report %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ x.date}}</td>
+                        {% if type == 'sale' %}
+                        <td>{{ x.sale_id }}</td>
+                        {% else %}
+                        <td>{{ x.r_id }}</td>
+                        {% endif %}
+                        <td>{{ x.gst }}</td>
+                        <td>{{ x.amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endblock content %}
